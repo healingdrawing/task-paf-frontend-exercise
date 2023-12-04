@@ -1,0 +1,436 @@
+=== THE TASK DESCRIPTION IN MD FILE ===
+
+# Paf frontend exercise
+
+## Objective
+
+Translate the provided [design mocks](./design/) into a working solution with HTML, CSS, Typescript, and React.
+Do not add any other frameworks or libraries. 
+
+## Requirements
+
+1. Use modern HTML to produce a semantic information structure.
+1. Use modern CSS to produce the layout with a mobile first approach  
+   _Should support screen resolutions from small screens (320px+) up to big screens (1920px+)_
+1. Fetch JSON-data from the following url: ```/api/games/lists.json```
+1. Use React to generate the elements/components based on the fetched JSON-data.
+1. Create a search/filter component based upon the JSON-data.
+   - Implement your own design for the search/filter component
+   - Should be a component
+   - Should filter the JSON-data based on user input
+   - Should display up to 10 previous searches
+   - Should persist search history on reload  
+     _**Don't** use autocomplete="on"_
+
+**Author your solution in the following places:**  
+- `index.html`
+- `src/styles.css`
+- `src/scripts.tsx`
+
+## Getting started
+
+There are two avaliable development environments
+- [Localhost](#localhost)
+- [Code Sandbox](#sandbox)
+
+### Localhost
+
+This setup provides a development server to be used in your machine.  
+Prerequisites are **node.js** _(LTS)_ (and **git** if you clone the repo)
+1. Install dependencies:
+    ```bash
+    npm ci
+    ```
+1. Start server:
+    ```bash
+    npm start
+    ```
+1. When done, package your solution with the following command:
+    ```bash
+    npm pack
+    ```
+1. And then send us your ```paf-frontend-exercise-1.0.0.tgz```.
+
+### Sandbox 
+This is the web based setup that only requires a modern browser to get you started.
+
+1. [Open a new Codesandbox](https://codesandbox.io/s/github/AndreasLindbergPAF/paf-frontend-exercise/tree/master/?fontsize=14&hidenavigation=1&theme=dark).
+1. When done, send us your Codesandbox-link.
+
+## Evaluation
+Your code test will be evaluated against the following criteria:
+
+- Meets the stated requirements.
+- Ability to implement and adapt a given design to a responsive design
+- Creativity shown in implementing a custom search feature
+- Simple over clever
+- Understanding of:
+  - React fundamentals
+  - TypeScript
+  - Immutability vs. mutability
+
+=== END OF THE TASK DESCRIPTION IN MD FILE ===
+
+=== PROJECT TEMPLATE WE HAVE AT THE BEGINNING MOMENT ===
+
+====== FILE api/games/lists.json ======
+
+{
+  "title": "Category title",
+  "description": "This is a game description providing rudimentary information about these specific games to the user. Additionally, it may also provide the user with information about the category and potential bonuses or jackpots accociated with it.",
+  "lists": [
+    {
+      "id": "popular",
+      "title": "Popular",
+      "items": [
+        {
+          "id": 1,
+          "title": "Copy Cat",
+          "provider": "NetEnt",
+          "image": "/resources/roundel-copy-cat.png"
+        },
+        {
+          "id": 2,
+          "title": "Casino Island",
+          "provider": "Paf Studios",
+          "image": "/resources/roundel-casino-island.png"
+        },
+        {
+          "id": 3,
+          "title": "Schlager Slotten",
+          "provider": "Paf Studios",
+          "image": "/resources/roundel-schlager-slotten.png"
+        },
+        {
+          "id": 4,
+          "title": "Cash & Carry",
+          "provider": "Paf Studios",
+          "image": "/resources/roundel-cash-carry.png"
+        }
+      ]
+    },
+    {
+      "id": "new-games",
+      "title": "New Games",
+      "items": [
+        {
+          "id": 4,
+          "title": "Cash & Carry",
+          "provider": "Paf Studios",
+          "image": "/resources/roundel-cash-carry.png"
+        },
+        {
+          "id": 2,
+          "title": "Casino Island",
+          "provider": "Paf Studios",
+          "image": "/resources/roundel-casino-island.png"
+        },
+        {
+          "id": 1,
+          "title": "Copy Cat",
+          "provider": "NetEnt",
+          "image": "/resources/roundel-copy-cat.png"
+        },
+        {
+          "id": 3,
+          "title": "Schlager Slotten",
+          "provider": "Paf Studios",
+          "image": "/resources/roundel-schlager-slotten.png"
+        }
+      ]
+    },
+    {
+      "id": "paf-exclusive",
+      "title": "Paf Exclusive",
+      "items": [
+        {
+          "id": 3,
+          "title": "Schlager Slotten",
+          "provider": "Paf Studios",
+          "image": "/resources/roundel-schlager-slotten.png"
+        },
+        {
+          "id": 4,
+          "title": "Cash & Carry",
+          "provider": "Paf Studios",
+          "image": "/resources/roundel-cash-carry.png"
+        },
+        {
+          "id": 1,
+          "title": "Copy Cat",
+          "provider": "NetEnt",
+          "image": "/resources/roundel-copy-cat.png"
+        },
+        {
+          "id": 2,
+          "title": "Casino Island",
+          "provider": "Paf Studios",
+          "image": "/resources/roundel-casino-island.png"
+        }
+      ]
+    }
+  ]
+}
+
+====== END OF FILE api/games/lists.json ======
+
+
+
+====== FILE design/large-viewports.png ======
+includes next design scheme:
+
+Category title
+----------------
+category description
+
+List title
+From left to right, x4 items, each looks like logo picture and "item title" under the logo picture
+
+List title
+From left to right, x4 items, each looks like logo picture and "item title" under the logo picture
+
+List title
+From left to right, x4 items, each looks like logo picture and "item title" under the logo picture
+
+====== END OF FILE design/large-viewports.png ======
+
+====== FILE design/small-viewports.png ======
+
+Category title
+----------------
+category description
+
+List title
+From left to right, x2 items, each looks like logo picture and "item title" under the logo picture
+From left to right, x2 items, each looks like logo picture and "item title" under the logo picture
+
+List title
+From left to right, x2 items, each looks like logo picture and "item title" under the logo picture
+From left to right, x2 items, each looks like logo picture and "item title" under the logo picture
+
+List title
+From left to right, x2 items, each looks like logo picture and "item title" under the logo picture
+From left to right, x2 items, each looks like logo picture and "item title" under the logo picture
+
+====== END OF FILE design/small-viewports.png ======
+
+====== FILE resources/roundel-cash-carry.png ======
+just rounded logo of some game 160x160 px
+====== END OF FILE resources/roundel-cash-carry.png ======
+
+====== FILE resources/roundel-casino-island.png ======
+just rounded logo of some game 160x160 px
+====== END OF FILE resources/roundel-casino-island.png ======
+
+====== FILE resources/roundel-copy-cat.png ======
+just rounded logo of some game 160x160 px
+====== END OF FILE resources/roundel-copy-cat.png ======
+
+====== FILE resources/roundel-schlager-slotten.png ======
+just rounded logo of some game 160x160 px
+====== END OF FILE resources/roundel-schlager-slotten.png ======
+
+====== FILE src/scripts.tsx ======
+import { createRoot } from 'react-dom/client';
+====== END OF FILE src/scripts.tsx ======
+
+====== FILE src/styles.css ======
+at the moment the file is empty
+====== END OF FILE src/styles.css ======
+
+====== FILE .gitattributes ======
+*                 text=auto
+
+# Styles
+*.css             text
+*.scss            text diff=css
+
+# Markup
+*.htm             text diff=html
+*.html            text diff=html
+
+# Script
+*.js              text
+*.jsx             text
+*.ts              text
+*.tsx             text
+
+# Assets
+*.json            text
+*.png             binary
+
+# Doc
+*.md              text
+CODEOWNERS        text
+
+# Config
+.gitattributes    text
+.*ignore        text
+package-lock.json text -diff
+*.lock            text -diff
+.*rc            text
+
+====== END OF FILE .gitattributes ======
+
+====== FILE .gitignore ======
+
+.parcel-cache/
+dist/*
+node_modules/
+*.xd
+*.tgz
+
+.idea/
+.vscode/
+
+====== END OF FILE .gitignore ======
+
+====== FILE .nvmrc ======
+
+lts/gallium
+
+====== END OF FILE .nvmrc ======
+
+====== FILE .parcelrc ======
+
+{
+  "extends": "@parcel/config-default",
+  "transformers": {
+    "*.{ts,tsx}": [
+      "@parcel/transformer-typescript-tsc"
+    ]
+  },
+  "reporters": [
+    "...",
+    "parcel-reporter-multiple-file-copier"
+  ]
+}
+
+====== END OF FILE .parcelrc ======
+
+====== FILE index.html ======
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Paf frontend exercise</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <script type="module" defer src="src/scripts.tsx"></script>
+  </body>
+</html>
+
+====== END OF FILE index.html ======
+
+====== FILE package.json ======
+
+{
+  "private": true,
+  "name": "paf-frontend-exercise",
+  "version": "2.0.0",
+  "description": "Paf frontend exercise",
+  "homepage": "https://github.com/AndreasLindbergPAF/paf-frontend-exercise/#readme",
+  "bugs": "https://github.com/AndreasLindbergPAF/paf-frontend-exercise/issues",
+  "author": "Andreas Lindberg <andreas.lindberg@paf.com> (https://aboutpaf.com/)",
+  "contributors": [
+    "Johan Westling",
+    "Andreas Lindberg",
+    "Olof Schröder"
+  ],
+  "license": "ISC",
+  "scripts": {
+    "start": "parcel index.html"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@parcel/config-default": "^2.6.0",
+    "@parcel/transformer-typescript-tsc": "^2.6.0",
+    "@types/react": "^18.0.13",
+    "@types/react-dom": "^18.0.5",
+    "parcel": "^2.6.0",
+    "parcel-reporter-multiple-file-copier": "^1.0.7",
+    "process": "^0.11.10",
+    "typescript": "^4.7.3"
+  },
+  "staticFiles": [
+    {
+      "origin": "api",
+      "destination": "api/"
+    },
+    {
+      "origin": "resources",
+      "destination": "resources/"
+    }
+  ],
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "engines": {
+    "node": "^14.8 || ^16",
+    "npm": "^6.14.8 || >8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/AndreasLindbergPAF/paf-frontend-exercise.git"
+  },
+  "homepage": "https://github.com/AndreasLindbergPAF/paf-frontend-exercise",
+  "bugs": {
+    "url": "https://github.com/AndreasLindbergPAF/paf-frontend-exercise/issues"
+  }
+}
+
+====== END OF FILE package.json ======
+
+====== FILE sandbox.config.json ======
+
+{
+  "template": "parcel",
+  "startScript": "start",
+  "node": "16"
+}
+
+====== END OF FILE sandbox.config.json ======
+
+====== FILE tsconfig.json ======
+
+{
+  "compilerOptions": {
+    "pretty": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "jsx": "react-jsx",
+    "newLine": "lf",
+
+    "rootDir": ".",
+    "baseUrl": "./src",
+    "sourceMap": true,
+
+    "alwaysStrict": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+
+    "removeComments": false,
+    "downlevelIteration": true,
+
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "useDefineForClassFields": true
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ]
+}
+
+====== END OF FILE tsconfig.json ======
+
+=== END OF PROJECT TEMPLATE WE HAVE AT THE BEGINNING MOMENT ===
