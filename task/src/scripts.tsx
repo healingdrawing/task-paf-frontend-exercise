@@ -9,6 +9,7 @@ interface AppProps {
 interface SearchFilterProps {
  data: any[];
  onSearch: (searchTerm: string) => void;
+ setSearchHistory: React.Dispatch<React.SetStateAction<string[]>>;
  searchHistory: string[];
 }
 
@@ -41,20 +42,11 @@ const App: React.FC<AppProps> = ({ data }) => {
  const handleSearch = (searchTerm: string) => {
  setSearchTerm(searchTerm);
  setFilteredData(data.lists.filter((list: List) => list.title.includes(searchTerm)));
-
- // Add the search term to the search history
- if (searchTerm && !searchHistory.includes(searchTerm)) {
- setSearchHistory(prevHistory => {
- const updatedHistory = [searchTerm, ...prevHistory];
- localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
- return updatedHistory;
- });
- }
  };
 
  return (
  <div className="container">
- <SearchFilter data={data.lists} onSearch={handleSearch} searchHistory={searchHistory} />
+ <SearchFilter data={data.lists} onSearch={handleSearch} setSearchHistory={setSearchHistory} searchHistory={searchHistory} />
  <h1 className="category-title">{data.title}</h1>
  <hr />
  <p className="description">{data.description}</p>
@@ -62,12 +54,12 @@ const App: React.FC<AppProps> = ({ data }) => {
  <div key={list.id}>
  <h2 className="list-title">{list.title}</h2>
  <div className="game-list">
-  {list.items.map((item: ListItem) => (
-    <div key={item.id} className="game-item">
-      <img src={item.image} alt={item.title} />
-      <p className="game-title">{item.title}</p>
-    </div>
-  ))}
+ {list.items.map((item: ListItem) => (
+ <div key={item.id} className="game-item">
+  <img src={item.image} alt={item.title} />
+  <p className="game-title">{item.title}</p>
+ </div>
+ ))}
  </div>
  </div>
  ))}
@@ -75,12 +67,32 @@ const App: React.FC<AppProps> = ({ data }) => {
  );
 };
 
-const SearchFilter: React.FC<SearchFilterProps> = ({ data, onSearch, searchHistory }) => {
+const SearchFilter: React.FC<SearchFilterProps> = ({ data, onSearch, setSearchHistory, searchHistory }) => {
  const [searchTerm, setSearchTerm] = useState('');
 
  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
  setSearchTerm(event.target.value);
  onSearch(event.target.value);
+ };
+
+ const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+ addSearchTermToHistory(event.target.value);
+ };
+
+ const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+ if (event.key === 'Enter') {
+ addSearchTermToHistory(event.currentTarget.value);
+ }
+ };
+
+ const addSearchTermToHistory = (searchTerm: string) => {
+ if (searchTerm && !searchHistory.includes(searchTerm)) {
+ setSearchHistory(prevHistory => {
+ const updatedHistory: string[] = [searchTerm, ...prevHistory];
+ localStorage.setItem('searchHistory', JSON.stringify(updatedHistory));
+ return updatedHistory;
+ });
+ }
  };
 
  return (
@@ -90,10 +102,12 @@ const SearchFilter: React.FC<SearchFilterProps> = ({ data, onSearch, searchHisto
  placeholder="Search..."
  value={searchTerm}
  onChange={handleSearch}
+ onBlur={handleBlur}
+ onKeyDown={handleKeyDown}
  />
  <ul className="search-history">
  {searchHistory.slice(0, 10).map((term: string, index: number) => (
-   <li key={index}>{term}</li>
+ <li key={index}>{term}</li>
  ))}
  </ul>
  </div>
