@@ -40,9 +40,14 @@ const App: React.FC<AppProps> = ({ data }) => {
  }, []);
 
  const handleSearch = (searchTerm: string) => {
- setSearchTerm(searchTerm);
- setFilteredData(data.lists.filter((list: List) => list.title.includes(searchTerm)));
- };
+  setSearchTerm(searchTerm);
+  setFilteredData(data.lists.map((list: List) => ({
+  ...list,
+  items: list.items.filter((item: ListItem) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase()) || item.provider.toLowerCase().includes(searchTerm.toLowerCase()) || item.image.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+  })));
+  };
 
  return (
  <div className="container">
