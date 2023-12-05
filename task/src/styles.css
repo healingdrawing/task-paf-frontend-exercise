@@ -1,0 +1,87 @@
+/* src/styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 5%;
+  background-color: #f5f5f5;
+  font-size: 16px;
+}
+hr { border: 1px solid;}
+input { background-color: #f5f5f5;}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 720px) {
+  .category-title {
+    font-size: 6vw;
+  }
+
+  .description {
+    font-size: 4vw;
+  }
+
+  .game-item {
+    flex: 1 0 46%;
+    margin-bottom: 5%;
+    padding: 0 2%;
+  }
+
+  .game-item .game-title {
+    text-align: center;
+    margin-top: 0;
+    font-size: 4vw;
+  }
+}
+
+@media screen and (min-width: 721px) {
+  .category-title {
+    font-size: 4vw;
+  }
+
+  .description {
+    font-size: 2vw;
+  }
+
+  .list-title {
+    font-size: 3vw;
+  }
+
+  .game-item {
+    flex: 1 0 16%;
+    margin-bottom: 0;
+    padding: 0 4%;
+  }
+
+  .game-item .game-title {
+    text-align: center;
+    margin-top: 0;
+    font-size: 1.9vw;
+  }
+}
+
+.game-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.game-item img {
+  width: 100%;
+  height: auto;
+}
+
+.search-history {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+}
+
+.search-history li {
+  margin: 0.5em;
+}
